@@ -25,4 +25,15 @@ public class Counter implements ICounter {
     public int getValue() {
         return v;
     }
+
+    @Override
+    public String toString() {
+        return "Counter{" +
+                "v=" + v +
+                '}';
+    }
+
+    public void setV(int v) {
+        this.v = v;
+    }
 }

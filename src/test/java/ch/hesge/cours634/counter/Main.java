@@ -2,22 +2,45 @@ package ch.hesge.cours634.counter;
 
 public class Main {
 
-    public static void main(String[] args) throws CounterException {
-        Counter counter1 = new Counter();
-        UpperLimitedPositiveCounter counter2 = new UpperLimitedPositiveCounter(1,5);
+    public static void main(String[] args)throws CounterException{
+        testCounter();
+        testUpperLimitedPositiveCounter();
 
-        //TEST QUI RETOURNENT PAS D'ERREUR
-        counter1.inc();
-        counter1.add(5);
-        System.out.println("counter1 doit retourner 6 et il retourne la valeur : " + counter1.getValue());
-        counter2.inc();
-        counter2.add(2);
-        System.out.println("counter2 doit retourner 4 et il retourne la valeur : " + counter2.getValue());
-        //TEST QUI RETOURNENT DES ERREURS
-        counter2.add(5);
-        UpperLimitedPositiveCounter counter3 = new UpperLimitedPositiveCounter(4,5);
-        counter2.inc();
-        UpperLimitedPositiveCounter counter4 = new UpperLimitedPositiveCounter(0,1);
-        UpperLimitedPositiveCounter counter5 = new UpperLimitedPositiveCounter(3,2);
+    }
+
+    private static void testUpperLimitedPositiveCounter() {
+        UpperLimitedPositiveCounter counter = new UpperLimitedPositiveCounter(0, 5);
+        try{
+            counter.add(10);
+            System.out.println("BUG");
+        }catch(CounterException e){
+            System.out.println("ok");
+        }
+    }
+
+    private static void testCounter() throws CounterException{
+        Counter counter;
+        //test constructeur
+        counter = new Counter();
+        if(counter.getValue()!=0){
+            throw new IllegalArgumentException("test constructeur failed, expected value 0 ....");
+        }
+
+        counter = new Counter(9);
+        if(counter.getValue()!=9){
+            throw new IllegalArgumentException("test constructeur failed, expected value 9 ....");
+        }
+        //test inc
+        counter = new Counter();
+        counter.inc();
+        if(counter.getValue() != 1){
+            throw new IllegalArgumentException("test inc failed, expected value 1 ...");
+        }
+        //test add
+        counter = new Counter();
+        counter.add(5);
+        if(counter.getValue() != 5){
+            throw new IllegalArgumentException("test inc failed, expected value 5 ...");
+        }
     }
 }
